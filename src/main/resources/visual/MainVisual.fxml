@@ -20,7 +20,7 @@
    <left>
       <HBox alignment="CENTER_LEFT" prefHeight="575.0" prefWidth="580.0" spacing="20.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="575.0" prefWidth="280.0">
+            <VBox alignment="CENTER" prefHeight="575.0" prefWidth="280.0" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" spacing="20.0">
                      <children>
@@ -43,7 +43,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="575.0" prefWidth="280.0">
+            <VBox alignment="CENTER" prefHeight="575.0" prefWidth="280.0" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" spacing="20.0">
                      <children>
