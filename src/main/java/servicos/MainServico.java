@@ -2,6 +2,7 @@ package servicos;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import utilitarios.NomeDialogo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +53,21 @@ public class MainServico {
         TreeItem<String> dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem();
         TreeItem<String> ambiente = dispositivoSelecionado.getParent();
         ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
+        renderizar();
+    }
+
+    public void verMensagens() {
+
+    }
+
+    public void moverDispositivo() {
+        TreeItem<String> dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem();
+        TreeItem<String> ambiente = dispositivoSelecionado.getParent();
+        ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
+        String ambienteEscolhido = NomeDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", false);
+        ambientesComDispositivos.keySet().forEach(amb -> System.out.println(amb.getValue()));
+        TreeItem<String> ambienteEncontrado = ambientesComDispositivos.keySet().stream().filter(amb -> amb.getValue().equals(ambienteEscolhido)).findFirst().get();
+        ambientesComDispositivos.get(ambienteEncontrado).add(dispositivoSelecionado);
         renderizar();
     }
 }

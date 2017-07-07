@@ -16,58 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.MainControlador">
-   <left>
-      <HBox alignment="CENTER_LEFT" prefHeight="575.0" prefWidth="580.0" spacing="20.0">
-         <children>
-            <VBox alignment="CENTER" prefHeight="575.0" prefWidth="280.0" spacing="10.0">
-               <children>
-                  <HBox alignment="CENTER" spacing="20.0">
-                     <children>
-                        <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagens/ambientes.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ambientes">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <ScrollPane>
-                     <content>
-                        <TreeView fx:id="ambientes" prefHeight="400.0" prefWidth="278.0" />
-                     </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="575.0" prefWidth="280.0" spacing="10.0">
-               <children>
-                  <HBox alignment="CENTER" spacing="20.0">
-                     <children>
-                        <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imagens/mensagens.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mensagens">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </HBox>
-                  <ListView />
-               </children>
-            </VBox>
-         </children>
-         <BorderPane.margin>
-            <Insets left="30.0" />
-         </BorderPane.margin>
-      </HBox>
-   </left>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../estilos/mainEstilo.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controladores.MainControlador">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -90,60 +39,184 @@
       </MenuBar>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="130.0" spacing="10.0">
-         <children>
-            <Button contentDisplay="TOP" graphicTextGap="5.0" mnemonicParsing="false" onAction="#adicionarAmbiente" prefHeight="90.0" prefWidth="140.0" text="Adicionar Ambiente">
-               <graphic>
-                  <ImageView fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/adicionar.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button contentDisplay="TOP" graphicTextGap="5.0" mnemonicParsing="false" onAction="#removerAmbiente" prefHeight="90.0" prefWidth="140.0" text="Remover Ambiente">
-               <graphic>
-                  <ImageView fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/remove.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button contentDisplay="TOP" graphicTextGap="5.0" mnemonicParsing="false" onAction="#adicionarDispositivo" prefHeight="90.0" prefWidth="140.0" text="Adicionar Dispositivo">
-               <graphic>
-                  <ImageView fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/adicionar.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button contentDisplay="TOP" graphicTextGap="5.0" mnemonicParsing="false" onAction="#removerDispositivo" prefHeight="90.0" prefWidth="140.0" text="Remover Dispositivos">
-               <graphic>
-                  <ImageView fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../imagens/remove.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
+      <VBox BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets left="30.0" top="130.0" />
+            <Insets left="30.0" />
          </BorderPane.margin>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="30.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="20.0">
+                           <children>
+                              <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagens/ambientes.png" />
+                                 </image>
+                              </ImageView>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ambientes">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <ScrollPane>
+                           <content>
+                              <TreeView fx:id="ambientes" prefHeight="354.0" prefWidth="378.0" />
+                           </content>
+                        </ScrollPane>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <VBox alignment="CENTER" spacing="5.0" styleClass="borda">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ambiente">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Text>
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#adicionarAmbiente" prefHeight="49.0" prefWidth="49.0">
+                                             <graphic>
+                                                <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagens/adicionar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#verMensagens" prefHeight="49.0" prefWidth="49.0">
+                                             <graphic>
+                                                <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagens/mensagem.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#removerAmbiente" prefHeight="49.0" prefWidth="49.0">
+                                             <graphic>
+                                                <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagens/remove.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox alignment="CENTER" spacing="5.0" styleClass="borda">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dispositivo">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#adicionarDispositivo" prefHeight="49.0" prefWidth="49.0">
+                                             <graphic>
+                                                <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagens/adicionar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#moverDispositivo" prefHeight="49.0" prefWidth="49.0">
+                                             <graphic>
+                                                <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagens/mover.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                          <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" onAction="#removerDispositivo" prefHeight="49.0" prefWidth="49.0">
+                                             <graphic>
+                                                <ImageView fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagens/remove.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="535.0" prefWidth="327.0" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER" spacing="20.0">
+                           <children>
+                              <ImageView fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../imagens/mensagens.png" />
+                                 </image>
+                              </ImageView>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mensagens">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <ListView prefHeight="450.0" prefWidth="327.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+         </children>
       </VBox>
    </center>
 </BorderPane>

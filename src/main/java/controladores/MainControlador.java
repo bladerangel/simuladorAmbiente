@@ -45,13 +45,23 @@ public class MainControlador implements Initializable {
     }
 
     @FXML
-    private void adicionarDispositivo(){
+    private void adicionarDispositivo() {
         mainServico.adicionarDispositivo();
     }
 
     @FXML
-    private void removerDispositivo(){
+    private void removerDispositivo() {
         mainServico.removerDispositivo();
+    }
+
+    @FXML
+    private void verMensagens() {
+        mainServico.verMensagens();
+    }
+
+    @FXML
+    private void moverDispositivo() {
+        mainServico.moverDispositivo();
     }
 
     public void sair() {
