@@ -1,5 +1,13 @@
-.borda{
+.borda {
     -fx-border-color: black;
     -fx-border-insets: 5;
     -fx-padding: 5 5 5 5;
+}
+
+.ambiente {
+    -fx-image: url("../imagens/ambiente.png");
+}
+
+.dispositivo {
+    -fx-image: url("../imagens/dispositivo.png");
 }

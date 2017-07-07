@@ -2,6 +2,7 @@ package servicos;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import utilitarios.NomeDialogo;
 
 import java.util.ArrayList;
@@ -16,12 +17,13 @@ public class MainServico {
 
     private Map<TreeItem<String>, List<TreeItem<String>>> ambientesComDispositivos;
 
+
     public MainServico(TreeView<String> ambientes) {
         this.ambientes = ambientes;
         ambientesComDispositivos = new HashMap<>();
     }
 
-    public void renderizar() {
+    private void renderizar() {
         ambientes.getRoot().getChildren().clear();
         ambientesComDispositivos.forEach((ambiente, dispositivos) -> {
             ambiente.getChildren().clear();
@@ -31,7 +33,9 @@ public class MainServico {
     }
 
     public void adicionarAmbiente() {
-        TreeItem<String> ambiente = new TreeItem<>("amb" + (ambientes.getRoot().getChildren().size() + 1));
+        ImageView imagemAmbiente = new ImageView();
+        imagemAmbiente.getStyleClass().add("ambiente");
+        TreeItem<String> ambiente = new TreeItem<>("amb" + (ambientes.getRoot().getChildren().size() + 1), imagemAmbiente);
         ambientesComDispositivos.put(ambiente, new ArrayList<>());
         renderizar();
     }
@@ -43,8 +47,10 @@ public class MainServico {
     }
 
     public void adicionarDispositivo() {
+        ImageView imagemDispositivo = new ImageView();
+        imagemDispositivo.getStyleClass().add("dispositivo");
         TreeItem<String> ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem();
-        TreeItem<String> dispositivo = new TreeItem<>("disp" + (ambientes.getRoot().getChildren().size() + 1));
+        TreeItem<String> dispositivo = new TreeItem<>("disp" + (ambientes.getRoot().getChildren().size() + 1), imagemDispositivo);
         ambientesComDispositivos.get(ambienteSelecionado).add(dispositivo);
         renderizar();
     }
@@ -61,13 +67,13 @@ public class MainServico {
     }
 
     public void moverDispositivo() {
+        ImageView imagemDispositivo = new ImageView();
+        imagemDispositivo.getStyleClass().add("dispositivo");
         TreeItem<String> dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem();
         TreeItem<String> ambiente = dispositivoSelecionado.getParent();
         ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
         String ambienteEscolhido = NomeDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", false);
-        ambientesComDispositivos.keySet().stream().filter(amb -> amb.getValue().equals(ambienteEscolhido)).findFirst().ifPresent(amb -> {
-            ambientesComDispositivos.get(amb).add(new TreeItem<>(dispositivoSelecionado.getValue()));
-        });
+        ambientesComDispositivos.keySet().stream().filter(amb -> amb.getValue().equals(ambienteEscolhido)).findFirst().ifPresent(amb -> ambientesComDispositivos.get(amb).add(new TreeItem<>(dispositivoSelecionado.getValue(), imagemDispositivo)));
         renderizar();
     }
 }
