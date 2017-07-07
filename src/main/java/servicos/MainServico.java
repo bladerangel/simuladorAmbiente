@@ -65,9 +65,9 @@ public class MainServico {
         TreeItem<String> ambiente = dispositivoSelecionado.getParent();
         ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
         String ambienteEscolhido = NomeDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", false);
-        ambientesComDispositivos.keySet().forEach(amb -> System.out.println(amb.getValue()));
-        TreeItem<String> ambienteEncontrado = ambientesComDispositivos.keySet().stream().filter(amb -> amb.getValue().equals(ambienteEscolhido)).findFirst().get();
-        ambientesComDispositivos.get(ambienteEncontrado).add(dispositivoSelecionado);
+        ambientesComDispositivos.keySet().stream().filter(amb -> amb.getValue().equals(ambienteEscolhido)).findFirst().ifPresent(amb -> {
+            ambientesComDispositivos.get(amb).add(new TreeItem<>(dispositivoSelecionado.getValue()));
+        });
         renderizar();
     }
 }
