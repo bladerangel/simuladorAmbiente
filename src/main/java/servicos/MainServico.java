@@ -73,9 +73,11 @@ public class MainServico {
     }
 
     public void removerDispositivo() {
-        TreeItem<String> dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem();
-        TreeItem<String> ambiente = dispositivoSelecionado.getParent();
-        //ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
+        String dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
+        String ambiente = ambientes.getSelectionModel().getSelectedItem().getParent().getValue();
+        AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
+        ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
+        javaSpaceServico.escrever(ambientesModelo);
         renderizar();
     }
 
