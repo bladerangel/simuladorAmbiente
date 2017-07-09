@@ -47,7 +47,13 @@ public class MainServico {
 
     public void adicionarAmbiente() {
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
-        ambientesModelo.ambientesComDispositivos.put("amb" + (ambientesModelo.ambientesComDispositivos.size() + 1), new ArrayList<>());
+        int ultimoAmbiente;
+        if (!ambientesModelo.ambientesComDispositivos.isEmpty()) {
+            ultimoAmbiente = Integer.parseInt(ambientesModelo.ambientesComDispositivos.lastKey().substring(3));
+        } else {
+            ultimoAmbiente = 0;
+        }
+        ambientesModelo.ambientesComDispositivos.put("amb" + (ultimoAmbiente + 1), new ArrayList<>());
         javaSpaceServico.escrever(ambientesModelo);
         renderizar();
     }
