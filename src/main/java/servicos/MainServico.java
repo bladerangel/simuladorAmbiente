@@ -36,7 +36,6 @@ public class MainServico {
             ImageView imagemAmbiente = new ImageView();
             imagemAmbiente.getStyleClass().add("ambiente");
             TreeItem<String> ambienteLayout = new TreeItem<>(ambiente, imagemAmbiente);
-            ambienteLayout.getChildren().clear();
 
             dispositivos.forEach(disp -> {
                 ImageView imagemDispositivo = new ImageView();
