@@ -24,6 +24,8 @@ public class MainServico {
         javaSpaceServico.iniciarServico();
         AmbientesModelo ambientesModelo = new AmbientesModelo();
         ambientesModelo.ambientesComDispositivos = new TreeMap<>(new ComparadorChaves());
+        ambientesModelo.ultimoAmbiente = 0;
+        ambientesModelo.ultimoDispositivo = 0;
         javaSpaceServico.escrever(ambientesModelo);
     }
 
@@ -49,13 +51,7 @@ public class MainServico {
 
     public void adicionarAmbiente() {
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
-        int ultimoAmbiente;
-        if (!ambientesModelo.ambientesComDispositivos.isEmpty()) {
-            ultimoAmbiente = Integer.parseInt(ambientesModelo.ambientesComDispositivos.lastKey().substring(3));
-        } else {
-            ultimoAmbiente = 0;
-        }
-        ambientesModelo.ambientesComDispositivos.put("amb" + (ultimoAmbiente + 1), new ArrayList<>());
+        ambientesModelo.ambientesComDispositivos.put("amb" + (++ambientesModelo.ultimoAmbiente), new ArrayList<>());
         javaSpaceServico.escrever(ambientesModelo);
         renderizar();
     }
@@ -69,11 +65,10 @@ public class MainServico {
     }
 
     public void adicionarDispositivo() {
-        ImageView imagemDispositivo = new ImageView();
-        imagemDispositivo.getStyleClass().add("dispositivo");
-        TreeItem<String> ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem();
-        TreeItem<String> dispositivo = new TreeItem<>("disp" + (ambientes.getRoot().getChildren().size() + 1), imagemDispositivo);
-        // ambientesComDispositivos.get(ambienteSelecionado).add(dispositivo);
+        String ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
+        AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
+        ambientesModelo.ambientesComDispositivos.get(ambienteSelecionado).add("disp" + (++ambientesModelo.ultimoDispositivo));
+        javaSpaceServico.escrever(ambientesModelo);
         renderizar();
     }
 

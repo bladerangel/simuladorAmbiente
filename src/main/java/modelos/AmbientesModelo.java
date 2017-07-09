@@ -1,12 +1,16 @@
 package modelos;
 
 import java.util.List;
-import java.util.NavigableMap;
+import java.util.Map;
 
 import net.jini.core.entry.Entry;
 
 public class AmbientesModelo implements Entry {
 
-    public NavigableMap<String, List<String>> ambientesComDispositivos;
+    public Map<String, List<String>> ambientesComDispositivos;
+
+    public Integer ultimoAmbiente;
+
+    public Integer ultimoDispositivo;
 
 }
