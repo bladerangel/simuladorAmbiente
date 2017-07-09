@@ -81,19 +81,21 @@ public class MainServico {
         renderizar();
     }
 
-    public void verMensagens() {
+    public void moverDispositivo() {
+        String dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
+        String ambiente = ambientes.getSelectionModel().getSelectedItem().getParent().getValue();
 
+        String ambienteEscolhido = NomeDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", false);
+
+        AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
+        ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
+        ambientesModelo.ambientesComDispositivos.get(ambienteEscolhido).add(dispositivoSelecionado);
+        javaSpaceServico.escrever(ambientesModelo);
+        renderizar();
     }
 
-    public void moverDispositivo() {
-        ImageView imagemDispositivo = new ImageView();
-        imagemDispositivo.getStyleClass().add("dispositivo");
-        TreeItem<String> dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem();
-        TreeItem<String> ambiente = dispositivoSelecionado.getParent();
-        //ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
-        String ambienteEscolhido = NomeDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", false);
-        //ambientesComDispositivos.keySet().stream().filter(amb -> amb.getValue().equals(ambienteEscolhido)).findFirst().ifPresent(amb -> ambientesComDispositivos.get(amb).add(new TreeItem<>(dispositivoSelecionado.getValue(), imagemDispositivo)));
-        renderizar();
+    public void verMensagens() {
+
     }
 
     public void sair() {
