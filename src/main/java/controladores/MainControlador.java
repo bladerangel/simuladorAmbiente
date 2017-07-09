@@ -65,6 +65,6 @@ public class MainControlador implements Initializable {
     }
 
     public void sair() {
-
+        mainServico.sair();
     }
 }
