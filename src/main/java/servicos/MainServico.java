@@ -1,13 +1,15 @@
 package servicos;
 
+import java.util.*;
+
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
+
 import modelos.AmbientesModelo;
 import modelos.ComparadorChaves;
 import utilitarios.NomeDialogo;
 
-import java.util.*;
 
 public class MainServico {
 

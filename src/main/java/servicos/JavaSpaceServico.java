@@ -1,9 +1,8 @@
 package servicos;
 
 import net.jini.core.entry.Entry;
-import net.jini.core.lease.Lease;
 import net.jini.space.JavaSpace;
-
+import net.jini.core.lease.Lease;
 
 public class JavaSpaceServico {
 

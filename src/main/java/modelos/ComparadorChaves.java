@@ -1,8 +1,7 @@
 package modelos;
 
-
-import java.io.Serializable;
 import java.util.Comparator;
+import java.io.Serializable;
 
 public class ComparadorChaves implements Comparator<String>, Serializable {
 

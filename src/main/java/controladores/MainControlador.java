@@ -1,13 +1,15 @@
 package controladores;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+
 import servicos.MainServico;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MainControlador implements Initializable {
 
