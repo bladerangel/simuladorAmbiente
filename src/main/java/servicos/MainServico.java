@@ -1,7 +1,6 @@
 package servicos;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
