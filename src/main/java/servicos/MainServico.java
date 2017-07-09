@@ -87,7 +87,7 @@ public class MainServico {
         String ambiente = ambientes.getSelectionModel().getSelectedItem().getParent().getValue();
 
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
-        String ambienteEscolhido = EscolherAmbienteDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", new ArrayList<>(ambientesModelo.ambientesComDispositivos.keySet()));
+        String ambienteEscolhido = EscolherAmbienteDialogo.nomeDialogo(null, "Escolha um ambiente", "Ambientes: ", new ArrayList<>(ambientesModelo.ambientesComDispositivos.keySet()));
 
         ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
         ambientesModelo.ambientesComDispositivos.get(ambienteEscolhido).add(dispositivoSelecionado);
