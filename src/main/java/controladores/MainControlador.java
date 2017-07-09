@@ -21,15 +21,8 @@ public class MainControlador implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*TreeItem<String> rootItem = new TreeItem<String>("Inbox");
-        rootItem.setExpanded(true);
-        for (int i = 1; i < 50; i++) {
-            TreeItem<String> item = new TreeItem<String>("Message" + i);
-            rootItem.getChildren().add(item);
-        }
-        ambientes.setRoot(rootItem);*/
 
-        TreeItem<String> item = new TreeItem<String>("Todos");
+        TreeItem<String> item = new TreeItem<>("Todos");
         item.setExpanded(true);
         ambientes.setRoot(item);
 

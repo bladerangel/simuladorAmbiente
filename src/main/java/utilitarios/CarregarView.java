@@ -34,7 +34,7 @@ public class CarregarView {
 
     //executa a açao quando o jogador fecha a janela
     public void sairPartida() {
-        MainControlador mainControlador = (MainControlador) fxmlLoader.getController();
+        MainControlador mainControlador = fxmlLoader.getController();
         estagio.setOnCloseRequest(event -> mainControlador.sair());
     }
 

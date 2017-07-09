@@ -16,7 +16,7 @@ public class MainServico {
 
     private TreeView<String> ambientes;
 
-    JavaSpaceServico javaSpaceServico;
+    private JavaSpaceServico javaSpaceServico;
 
     public MainServico(TreeView<String> ambientes) {
         this.ambientes = ambientes;
