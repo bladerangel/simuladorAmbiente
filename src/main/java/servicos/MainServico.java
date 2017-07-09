@@ -1,6 +1,7 @@
 package servicos;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -8,7 +9,7 @@ import javafx.scene.image.ImageView;
 
 import modelos.AmbientesModelo;
 import modelos.ComparadorChaves;
-import utilitarios.NomeDialogo;
+import utilitarios.EscolherAmbienteDialogo;
 
 
 public class MainServico {
@@ -85,9 +86,9 @@ public class MainServico {
         String dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
         String ambiente = ambientes.getSelectionModel().getSelectedItem().getParent().getValue();
 
-        String ambienteEscolhido = NomeDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", false);
-
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
+        String ambienteEscolhido = EscolherAmbienteDialogo.nomeDialogo(null, "Informe o nome do ambiente", "Digite o nome do ambiente:", new ArrayList<>(ambientesModelo.ambientesComDispositivos.keySet()));
+
         ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
         ambientesModelo.ambientesComDispositivos.get(ambienteEscolhido).add(dispositivoSelecionado);
         javaSpaceServico.escrever(ambientesModelo);
