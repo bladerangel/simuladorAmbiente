@@ -1,8 +1,6 @@
-package servicos;
+package servicos.jms;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 import javax.jms.*;
 import javax.naming.Context;
@@ -15,11 +13,8 @@ public class CoordenadorJMSServico {
     private TopicConnection conexao;
     private TopicSession sessao;
 
-    private List<String> mensagensArmazenadas;
-
     public void iniciarConexao() {
         try {
-            mensagensArmazenadas = new ArrayList<>();
             Hashtable<String, String> propriedades = new Hashtable<>();
             propriedades.put(Context.PROVIDER_URL, "tcp://localhost:3035");
             propriedades.put(Context.INITIAL_CONTEXT_FACTORY, "org.exolab.jms.jndi.InitialContextFactory");
@@ -50,19 +45,11 @@ public class CoordenadorJMSServico {
 
     }
 
-    public void receberMensagem() {
+    public void receberMensagem(MessageListener mensagemListener) {
         try {
             Topic topico = (Topic) contexto.lookup("topic1");
             TopicSubscriber receptor = sessao.createSubscriber(topico);
-            receptor.setMessageListener(mensagem -> {
-                try {
-                    if (mensagem instanceof TextMessage) {
-                        mensagensArmazenadas.add(((TextMessage) mensagem).getText());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
+            receptor.setMessageListener(mensagemListener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,9 +62,5 @@ public class CoordenadorJMSServico {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public List<String> getMensagensArmazenadas() {
-        return mensagensArmazenadas;
     }
 }

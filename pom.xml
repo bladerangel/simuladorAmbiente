@@ -17,12 +17,7 @@
 
 
     <build>
-        <finalName>sockets</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/java/modulos/main/visoes</directory>
-            </resource>
-        </resources>
+        <finalName>simuladorAmbiente</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

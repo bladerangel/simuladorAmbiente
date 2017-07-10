@@ -9,7 +9,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
-import servicos.MainServico;
+import servicos.javaspaces.AmbienteServico;
+import servicos.jms.CoordenadorJMSServico;
+import servicos.jms.MensagemServico;
 
 
 public class MainControlador implements Initializable {
@@ -20,7 +22,11 @@ public class MainControlador implements Initializable {
     @FXML
     private ListView<String> mensagens;
 
-    private MainServico mainServico;
+    private AmbienteServico ambienteServico;
+
+    private MensagemServico mensagemServico;
+
+    private CoordenadorJMSServico coordenadorJmsServico;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -29,40 +35,40 @@ public class MainControlador implements Initializable {
         item.setExpanded(true);
         ambientes.setRoot(item);
 
-        mainServico = new MainServico(ambientes, mensagens);
+        coordenadorJmsServico = new CoordenadorJMSServico();
+        coordenadorJmsServico.iniciarConexao();
+
+        ambienteServico = new AmbienteServico(ambientes, coordenadorJmsServico);
+
+        mensagemServico = new MensagemServico(mensagens, coordenadorJmsServico);
     }
 
     @FXML
     private void adicionarAmbiente() {
-        mainServico.adicionarAmbiente();
+        ambienteServico.adicionarAmbiente();
     }
 
     @FXML
     private void removerAmbiente() {
-        mainServico.removerAmbiente();
+        ambienteServico.removerAmbiente();
     }
 
     @FXML
     private void adicionarDispositivo() {
-        mainServico.adicionarDispositivo();
+        ambienteServico.adicionarDispositivo();
     }
 
     @FXML
     private void removerDispositivo() {
-        mainServico.removerDispositivo();
-    }
-
-    @FXML
-    private void verMensagens() {
-        mainServico.verMensagens();
+        ambienteServico.removerDispositivo();
     }
 
     @FXML
     private void moverDispositivo() {
-        mainServico.moverDispositivo();
+        ambienteServico.moverDispositivo();
     }
 
     public void sair() {
-        mainServico.sair();
+        ambienteServico.sair();
     }
 }

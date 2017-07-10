@@ -1,4 +1,4 @@
-package servicos;
+package servicos.javaspaces;
 
 import net.jini.core.entry.Entry;
 import net.jini.space.JavaSpace;

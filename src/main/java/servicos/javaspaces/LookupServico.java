@@ -1,4 +1,4 @@
-package servicos;
+package servicos.javaspaces;
 
 import java.io.IOException;
 
