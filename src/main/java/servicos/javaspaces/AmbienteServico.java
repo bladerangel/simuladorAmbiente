@@ -40,6 +40,7 @@ public class AmbienteServico {
             ImageView imagemAmbiente = new ImageView();
             imagemAmbiente.getStyleClass().add("ambiente");
             TreeItem<String> ambienteLayout = new TreeItem<>(ambiente, imagemAmbiente);
+            ambienteLayout.setExpanded(true);
 
             dispositivos.forEach(disp -> {
                 ImageView imagemDispositivo = new ImageView();
