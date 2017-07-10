@@ -1,7 +1,11 @@
 package servicos;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
@@ -10,18 +14,26 @@ import modelos.AmbientesModelo;
 import modelos.ComparadorChaves;
 import utilitarios.EscolherAmbienteDialogo;
 
-
 public class MainServico {
-
 
     private TreeView<String> ambientes;
 
     private JavaSpaceServico javaSpaceServico;
 
-    public MainServico(TreeView<String> ambientes) {
+    private CoordenadorJMSServico coordenadorJmsServico;
+
+    private ListView<String> mensagens;
+
+    public MainServico(TreeView<String> ambientes, ListView<String> mensagens) {
         this.ambientes = ambientes;
+        this.mensagens = mensagens;
         javaSpaceServico = new JavaSpaceServico();
         javaSpaceServico.iniciarServico();
+
+        coordenadorJmsServico = new CoordenadorJMSServico();
+        coordenadorJmsServico.iniciarConexao();
+        coordenadorJmsServico.receberMensagem();
+
         AmbientesModelo ambientesModelo = new AmbientesModelo();
         ambientesModelo.ambientesComDispositivos = new TreeMap<>(new ComparadorChaves());
         ambientesModelo.ultimoAmbiente = 0;
@@ -50,8 +62,20 @@ public class MainServico {
 
     public void adicionarAmbiente() {
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
-        ambientesModelo.ambientesComDispositivos.put("amb" + (++ambientesModelo.ultimoAmbiente), new ArrayList<>());
+        String ambiente = "amb" + (++ambientesModelo.ultimoAmbiente);
+        ambientesModelo.ambientesComDispositivos.put(ambiente, new ArrayList<>());
         javaSpaceServico.escrever(ambientesModelo);
+        coordenadorJmsServico.publicarMensagem(ambiente + " foi criado com sucesso!");
+        renderizar();
+    }
+
+    public void adicionarDispositivo() {
+        String ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
+        AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
+        String dispositivo = "disp" + (++ambientesModelo.ultimoDispositivo);
+        ambientesModelo.ambientesComDispositivos.get(ambienteSelecionado).add(dispositivo);
+        javaSpaceServico.escrever(ambientesModelo);
+        coordenadorJmsServico.publicarMensagem(dispositivo + " foi adicionado no " + ambienteSelecionado);
         renderizar();
     }
 
@@ -60,16 +84,10 @@ public class MainServico {
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
         ambientesModelo.ambientesComDispositivos.remove(ambienteSelecionado);
         javaSpaceServico.escrever(ambientesModelo);
+        coordenadorJmsServico.publicarMensagem(ambienteSelecionado + " foi removido com sucesso!");
         renderizar();
     }
 
-    public void adicionarDispositivo() {
-        String ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
-        AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
-        ambientesModelo.ambientesComDispositivos.get(ambienteSelecionado).add("disp" + (++ambientesModelo.ultimoDispositivo));
-        javaSpaceServico.escrever(ambientesModelo);
-        renderizar();
-    }
 
     public void removerDispositivo() {
         String dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
@@ -77,6 +95,7 @@ public class MainServico {
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
         ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
         javaSpaceServico.escrever(ambientesModelo);
+        coordenadorJmsServico.publicarMensagem(dispositivoSelecionado + " foi removido do " + ambiente);
         renderizar();
     }
 
@@ -90,14 +109,17 @@ public class MainServico {
         ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
         ambientesModelo.ambientesComDispositivos.get(ambienteEscolhido).add(dispositivoSelecionado);
         javaSpaceServico.escrever(ambientesModelo);
+        coordenadorJmsServico.publicarMensagem(dispositivoSelecionado + " foi movido para o " + ambienteEscolhido);
         renderizar();
     }
 
     public void verMensagens() {
-
+        ObservableList<String> items = FXCollections.observableArrayList(coordenadorJmsServico.getMensagensArmazenadas());
+        mensagens.setItems(items);
     }
 
     public void sair() {
         javaSpaceServico.pegar(new AmbientesModelo());
+        coordenadorJmsServico.fecharConexao();
     }
 }

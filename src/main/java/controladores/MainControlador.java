@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -13,9 +14,11 @@ import servicos.MainServico;
 
 public class MainControlador implements Initializable {
 
-
     @FXML
     private TreeView<String> ambientes;
+
+    @FXML
+    private ListView<String> mensagens;
 
     private MainServico mainServico;
 
@@ -26,7 +29,7 @@ public class MainControlador implements Initializable {
         item.setExpanded(true);
         ambientes.setRoot(item);
 
-        mainServico = new MainServico(ambientes);
+        mainServico = new MainServico(ambientes, mensagens);
     }
 
     @FXML
