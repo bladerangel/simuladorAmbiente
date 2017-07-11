@@ -20,6 +20,10 @@ public class MensagemServico implements MessageListener {
         coordenadorJmsServico.receberMensagem(this);
     }
 
+    public void resetar() {
+        mensagens.getItems().clear();
+    }
+
     @Override
     public void onMessage(Message mensagem) {
         if (mensagem instanceof TextMessage) {

@@ -25,7 +25,10 @@ public class AmbienteServico {
         this.coordenadorJmsServico = coordenadorJmsServico;
         javaSpaceServico = new JavaSpaceServico();
         javaSpaceServico.iniciarServico();
+        iniciarAmbientes();
+    }
 
+    private void iniciarAmbientes() {
         AmbientesModelo ambientesModelo = new AmbientesModelo();
         ambientesModelo.ambientesComDispositivos = new TreeMap<>(new ComparadorChaves());
         ambientesModelo.ultimoAmbiente = 0;
@@ -111,6 +114,12 @@ public class AmbienteServico {
             coordenadorJmsServico.publicarMensagem(dispositivoSelecionado + " foi movido para o " + ambienteEscolhido);
             renderizar();
         }
+    }
+
+    public void resetar() {
+        javaSpaceServico.pegar(new AmbientesModelo());
+        iniciarAmbientes();
+        renderizar();
     }
 
     public void sair() {

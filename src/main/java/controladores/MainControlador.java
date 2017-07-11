@@ -54,6 +54,12 @@ public class MainControlador implements Initializable {
     }
 
     @FXML
+    private void resetarAmbientes(){
+        ambienteServico.resetar();
+        mensagemServico.resetar();
+    }
+
+    @FXML
     private void adicionarDispositivo() {
         ambienteServico.adicionarDispositivo();
     }
