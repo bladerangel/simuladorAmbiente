@@ -13,6 +13,7 @@ public class CoordenadorJMSServico {
     private TopicConnection conexao;
     private TopicSession sessao;
 
+    //inicia a conexao com o jms
     public void iniciarConexao() {
         try {
             Hashtable<String, String> propriedades = new Hashtable<>();
@@ -30,7 +31,7 @@ public class CoordenadorJMSServico {
         }
     }
 
-
+    //publica um topico no jms
     public void publicarMensagem(String msg) {
         try {
             TextMessage mensagem = sessao.createTextMessage();
@@ -45,6 +46,7 @@ public class CoordenadorJMSServico {
 
     }
 
+    //recebe a mensagem num topico no jms
     public void receberMensagem(MessageListener mensagemListener) {
         try {
             Topic topico = (Topic) contexto.lookup("topic1");
@@ -55,6 +57,7 @@ public class CoordenadorJMSServico {
         }
     }
 
+    //fecha a conexao com o jms
     public void fecharConexao() {
         try {
             contexto.close();

@@ -28,6 +28,7 @@ public class AmbienteServico {
         iniciarAmbientes();
     }
 
+    //inicia ambientes no javaspaces
     private void iniciarAmbientes() {
         AmbientesModelo ambientesModelo = new AmbientesModelo();
         ambientesModelo.ambientesComDispositivos = new TreeMap<>(new ComparadorChaves());
@@ -36,6 +37,7 @@ public class AmbienteServico {
         javaSpaceServico.escrever(ambientesModelo);
     }
 
+    //renderiza os ambientes com seus respectivos dispositivos
     private void renderizar() {
         ambientes.getRoot().getChildren().clear();
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.ler(new AmbientesModelo());
@@ -56,6 +58,7 @@ public class AmbienteServico {
         });
     }
 
+    //adiciona um ambiente no javaspace
     public void adicionarAmbiente() {
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.pegar(new AmbientesModelo());
         String ambiente = "amb" + (++ambientesModelo.ultimoAmbiente);
@@ -65,6 +68,7 @@ public class AmbienteServico {
         renderizar();
     }
 
+    //adiciona um dispositivo no javaspace
     public void adicionarDispositivo() {
         String ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
         if (ambienteSelecionado.substring(0, 3).equals("amb")) {
@@ -77,6 +81,7 @@ public class AmbienteServico {
         }
     }
 
+    //remove um ambiente no javaspace
     public void removerAmbiente() {
         String ambienteSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
         if (ambienteSelecionado.substring(0, 3).equals("amb")) {
@@ -88,6 +93,7 @@ public class AmbienteServico {
         }
     }
 
+    //remove um dispositivo no javaspace
     public void removerDispositivo() {
         String dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
         if (dispositivoSelecionado.substring(0, 4).equals("disp")) {
@@ -100,6 +106,7 @@ public class AmbienteServico {
         }
     }
 
+    //move um dispositivo no javaspace
     public void moverDispositivo() {
         String dispositivoSelecionado = ambientes.getSelectionModel().getSelectedItem().getValue();
         if (dispositivoSelecionado.substring(0, 4).equals("disp")) {
@@ -116,12 +123,14 @@ public class AmbienteServico {
         }
     }
 
+    //reinicia os ambientes no javaspace
     public void resetar() {
         javaSpaceServico.pegar(new AmbientesModelo());
         iniciarAmbientes();
         renderizar();
     }
 
+    //fecha a conexao com o jms e retira os ambientes do javaspace
     public void sair() {
         javaSpaceServico.pegar(new AmbientesModelo());
         coordenadorJmsServico.fecharConexao();

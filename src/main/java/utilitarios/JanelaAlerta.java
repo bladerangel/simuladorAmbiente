@@ -3,7 +3,6 @@ package utilitarios;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
-//classe utilitario de exibição de alerta
 public class JanelaAlerta {
 
     private static Alert alert;

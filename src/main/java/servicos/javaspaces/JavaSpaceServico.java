@@ -10,6 +10,7 @@ public class JavaSpaceServico {
 
     private JavaSpace espaco;
 
+    //inicia o javaspace
     public void iniciarServico() {
         lookupServico = new LookupServico(JavaSpace.class);
         espaco = (JavaSpace) lookupServico.getService();
@@ -20,6 +21,7 @@ public class JavaSpaceServico {
         System.out.println("O servico JavaSpace foi encontrado.");
     }
 
+    //escreve uma tupla no javaspace
     public void escrever(Entry tupla) {
         try {
             espaco.write(tupla, null, Lease.FOREVER);
@@ -28,6 +30,7 @@ public class JavaSpaceServico {
         }
     }
 
+    //ler uma tupla no javaspace
     public Entry ler(Entry tupla) {
         try {
             return espaco.read(tupla, null, 60 * 1000);
@@ -37,6 +40,7 @@ public class JavaSpaceServico {
         return null;
     }
 
+    //pega uma tupla no javaspace
     public Entry pegar(Entry tupla) {
         try {
             return espaco.take(tupla, null, 60 * 1000);

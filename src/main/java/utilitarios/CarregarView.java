@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-//classe utilitario para o carregamento de arquivos .fxml
 public class CarregarView {
 
     private FXMLLoader fxmlLoader;
@@ -22,6 +21,7 @@ public class CarregarView {
         this.estagio = estagio;
     }
 
+    //seta configuracoes da cena
     public void setCena() {
         try {
             cena = new Scene(this.fxmlLoader.load());
