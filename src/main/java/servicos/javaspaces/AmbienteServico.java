@@ -1,5 +1,7 @@
 package servicos.javaspaces;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -11,6 +13,8 @@ import modelos.AmbientesModelo;
 import modelos.ComparadorChaves;
 import servicos.jms.CoordenadorJMSServico;
 import utilitarios.EscolherAmbienteDialogo;
+
+import javax.swing.*;
 
 public class AmbienteServico {
 
@@ -25,7 +29,7 @@ public class AmbienteServico {
         this.coordenadorJmsServico = coordenadorJmsServico;
         javaSpaceServico = new JavaSpaceServico();
         javaSpaceServico.iniciarServico();
-        iniciarAmbientes();
+        new Timer(3 * 1000, e -> renderizar()).start();
     }
 
     //inicia ambientes no javaspaces
@@ -39,23 +43,27 @@ public class AmbienteServico {
 
     //renderiza os ambientes com seus respectivos dispositivos
     private void renderizar() {
-        ambientes.getRoot().getChildren().clear();
         AmbientesModelo ambientesModelo = (AmbientesModelo) javaSpaceServico.ler(new AmbientesModelo());
-        ambientesModelo.ambientesComDispositivos.forEach((ambiente, dispositivos) -> {
-            ImageView imagemAmbiente = new ImageView();
-            imagemAmbiente.getStyleClass().add("ambiente");
-            TreeItem<String> ambienteLayout = new TreeItem<>(ambiente, imagemAmbiente);
-            ambienteLayout.setExpanded(true);
+        if (ambientesModelo == null) {
+            iniciarAmbientes();
+        } else {
+            ambientes.getRoot().getChildren().clear();
+            ambientesModelo.ambientesComDispositivos.forEach((ambiente, dispositivos) -> {
+                ImageView imagemAmbiente = new ImageView();
+                imagemAmbiente.getStyleClass().add("ambiente");
+                TreeItem<String> ambienteLayout = new TreeItem<>(ambiente, imagemAmbiente);
+                ambienteLayout.setExpanded(true);
 
-            dispositivos.forEach(disp -> {
-                ImageView imagemDispositivo = new ImageView();
-                imagemDispositivo.getStyleClass().add("dispositivo");
-                TreeItem<String> dispositivoLayout = new TreeItem<>(disp, imagemDispositivo);
-                ambienteLayout.getChildren().add(dispositivoLayout);
+                dispositivos.forEach(disp -> {
+                    ImageView imagemDispositivo = new ImageView();
+                    imagemDispositivo.getStyleClass().add("dispositivo");
+                    TreeItem<String> dispositivoLayout = new TreeItem<>(disp, imagemDispositivo);
+                    ambienteLayout.getChildren().add(dispositivoLayout);
+                });
+
+                ambientes.getRoot().getChildren().add(ambienteLayout);
             });
-
-            ambientes.getRoot().getChildren().add(ambienteLayout);
-        });
+        }
     }
 
     //adiciona um ambiente no javaspace
@@ -65,7 +73,6 @@ public class AmbienteServico {
         ambientesModelo.ambientesComDispositivos.put(ambiente, new ArrayList<>());
         javaSpaceServico.escrever(ambientesModelo);
         coordenadorJmsServico.publicarMensagem(ambiente + " foi criado com sucesso!");
-        renderizar();
     }
 
     //adiciona um dispositivo no javaspace
@@ -77,7 +84,6 @@ public class AmbienteServico {
             ambientesModelo.ambientesComDispositivos.get(ambienteSelecionado).add(dispositivo);
             javaSpaceServico.escrever(ambientesModelo);
             coordenadorJmsServico.publicarMensagem(dispositivo + " foi adicionado no " + ambienteSelecionado);
-            renderizar();
         }
     }
 
@@ -89,7 +95,6 @@ public class AmbienteServico {
             ambientesModelo.ambientesComDispositivos.remove(ambienteSelecionado);
             javaSpaceServico.escrever(ambientesModelo);
             coordenadorJmsServico.publicarMensagem(ambienteSelecionado + " foi removido com sucesso!");
-            renderizar();
         }
     }
 
@@ -102,7 +107,6 @@ public class AmbienteServico {
             ambientesModelo.ambientesComDispositivos.get(ambiente).remove(dispositivoSelecionado);
             javaSpaceServico.escrever(ambientesModelo);
             coordenadorJmsServico.publicarMensagem(dispositivoSelecionado + " foi removido do " + ambiente);
-            renderizar();
         }
     }
 
@@ -119,7 +123,6 @@ public class AmbienteServico {
             ambientesModelo.ambientesComDispositivos.get(ambienteEscolhido).add(dispositivoSelecionado);
             javaSpaceServico.escrever(ambientesModelo);
             coordenadorJmsServico.publicarMensagem(dispositivoSelecionado + " foi movido para o " + ambienteEscolhido);
-            renderizar();
         }
     }
 
@@ -127,12 +130,10 @@ public class AmbienteServico {
     public void resetar() {
         javaSpaceServico.pegar(new AmbientesModelo());
         iniciarAmbientes();
-        renderizar();
     }
 
     //fecha a conexao com o jms e retira os ambientes do javaspace
     public void sair() {
-        javaSpaceServico.pegar(new AmbientesModelo());
         coordenadorJmsServico.fecharConexao();
     }
 }

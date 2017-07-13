@@ -33,7 +33,7 @@ public class JavaSpaceServico {
     //ler uma tupla no javaspace
     public Entry ler(Entry tupla) {
         try {
-            return espaco.read(tupla, null, 60 * 1000);
+            return espaco.read(tupla, null, 60 * 100);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,7 +43,7 @@ public class JavaSpaceServico {
     //pega uma tupla no javaspace
     public Entry pegar(Entry tupla) {
         try {
-            return espaco.take(tupla, null, 60 * 1000);
+            return espaco.take(tupla, null, 60 * 100);
         } catch (Exception e) {
             e.printStackTrace();
         }
